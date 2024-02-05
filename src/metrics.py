@@ -10,7 +10,7 @@ IronicProvisionState = Gauge('openstack_ironic_provision_state', 'Ironic node pr
 
 Provision_States = {
     "available": 0,
-    "acitve": 1,
+    "active": 1,
     "deploying": 2,
     "error": -1,
     "deploy failed": -2,
