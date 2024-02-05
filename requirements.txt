@@ -6,4 +6,4 @@ kubernetes==v12.0.0
 configparser==3.7.1
 pika==1.2.0
 retry==0.9.2
-cryptography==3.1.1
+cryptography==41.0.6
