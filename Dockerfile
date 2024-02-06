@@ -1,4 +1,4 @@
-FROM python:3.6-alpine as base
+FROM python:3.12-alpine as base
 FROM base as builder
 
 RUN apk add --update --no-cache --virtual build-deps gcc python3-dev musl-dev libc-dev linux-headers libxslt-dev libxml2-dev \
