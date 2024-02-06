@@ -1,4 +1,4 @@
-prometheus_client==0.5.0
+prometheus_client==0.19.0
 python-neutronclient==7.3.0
 python-ironicclient==4.7.0
 python-dotenv==0.18.0
