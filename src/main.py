@@ -2,17 +2,13 @@ from time import sleep
 import logging
 import os
 import sys
- 
-from keystoneauth1 import identity
-from keystoneauth1 import session
-from neutronclient.v2_0 import client as neutron_client
-from prometheus_client import start_http_server, Info, CollectorRegistry, Gauge, Counter
-from ironicclient import client
+
+from prometheus_client import start_http_server, Info, CollectorRegistry
 from kubernetes import client as k8s_client
 from kubernetes import config as k8s_config
 
 import config
-import metrics
+
 from ironic_notifications import Notifications
 from ironic_ports import Ports
 
@@ -21,11 +17,19 @@ LOG = logging.getLogger(__name__)
 
 
 def setup_logging():
-    logging.basicConfig(format='%(asctime)-15s %(process)d %(levelname)s %(filename)s:%(lineno)d %(message)s',
-                        level=os.environ.get("LOGLEVEL", "INFO"))
+    """
+    Setup logging
+    """
+    logging.basicConfig(
+        format='%(asctime)-15s %(process)d %(levelname)s %(filename)s:%(lineno)d %(message)s',
+        level=os.environ.get("LOGLEVEL", "INFO")
+    )
 
 
 def setup_k8s():
+    """
+    setup k8s client env vars
+    """
     try:
         k8s_config.load_kube_config()
 
@@ -36,6 +40,9 @@ def setup_k8s():
 
 
 def setup_prometheus():
+    """
+    Setup prometheus
+    """
     port_info = Info('openstack_ironic_leftover_ports',
                      'Neutron ports corresponding to Ironic node ports that were not removed')
     port_info.info({'version': os.environ.get("OS_VERSION", '')})
@@ -44,6 +51,9 @@ def setup_prometheus():
 
 
 def setup_openstack_clis():
+    """
+    setup openstack clients (neutron and ironic)
+    """
     try:
         neutron_cli = config.get_neutron_client()
         ironic_cli = config.get_ironic_client()
@@ -54,14 +64,12 @@ def setup_openstack_clis():
             LOG.error("Neutron-etc configmap not found!")
             sys.exit(1)
         else:
-            LOG.error("Cannot load neutron configmap: {0}".format(err))
+            LOG.error("Cannot load neutron configmap: %s",err)
             sys.exit(1)
 
 
 if __name__ == "__main__":
-    """
-    Main function
-    """
+
     setup_logging()
     setup_k8s()
     setup_prometheus()
