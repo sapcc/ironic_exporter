@@ -4,8 +4,9 @@ FROM base as builder
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt update \
     && apt upgrade -y \
-    && apt full-upgrade -y \
-    #&& apt install libffi-dev openssl-dev
+    && apt full-upgrade -y 
+
+#RUN apt install libffi-dev openssl-dev
 
 RUN python -m pip install --upgrade pip
 

@@ -4,7 +4,6 @@ from io import StringIO
 import re
 
 from kubernetes import client as k8s_client
-from kubernetes import config as k8s_config
 from keystoneauth1 import identity
 from keystoneauth1 import session
 from neutronclient.v2_0 import client as neutron_client
@@ -28,7 +27,6 @@ def get_neutron_client():
                              user_domain_name=auth_parser["user_domain_name"])
 
     sess = session.Session(auth=auth)
-    sess.verify
 
     return neutron_client.Client(session=sess)
 
@@ -46,7 +44,6 @@ def get_ironic_client():
                             project_domain_name=os.environ.get("OS_PROJECT_DOMAIN_NAME", "ccadmin"),
                             user_domain_name=os.environ.get("OS_USER_DOMAIN_NAME", "Default"))
     sess = session.Session(auth=auth)
-    sess.verify
 
     return ironic_client.Client(version=1, session=sess)
 
