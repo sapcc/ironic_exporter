@@ -1,3 +1,7 @@
+"""
+ironic-exporter is creating Ironic metrics for Prometheus
+"""
+
 from time import sleep
 import logging
 import os
@@ -83,7 +87,7 @@ if __name__ == "__main__":
     if notifications_enabled:
         for routing_key in ["info", "error"]:
             notifications = Notifications(rabbit_auth[0], rabbit_auth[1], region, routing_key)
-            notifications.setDaemon(True)
+            notifications.daemon = True
             notifications.start()
 
 
