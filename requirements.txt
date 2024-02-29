@@ -1,5 +1,5 @@
 prometheus_client==0.20.0
-python-neutronclient==11.1.0
+python-neutronclient==11.2.0
 python-ironicclient==5.4.0
 python-dotenv==1.0.1
 kubernetes==29.0.0
